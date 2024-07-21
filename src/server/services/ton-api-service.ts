@@ -1,14 +1,4 @@
-import {
-  Account,
-  ConnectAdditionalRequest,
-  SendTransactionRequest,
-  TonProofItemReplySuccess,
-} from '@tonconnect/ui-react';
-import '../../patch-local-storage-for-github-pages';
-
 export class TonApiService {
-  private localStorageKey = 'demo-api-access-token';
-
   private host = 'https://tonapi.io/v2/';
   private walletAddress = '';
 

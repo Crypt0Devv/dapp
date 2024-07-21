@@ -21,10 +21,8 @@
     "buffer": "^6.0.3",
     "eruda": "^2.11.2",
     "jose": "^5.2.4",
-    "msw": "^2.3.0",
-    "react": "^17.0.0",
-    "react-dom": "^17.0.0",
-    "react-json-view": "^1.21.3",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "zod": "^3.23.8"
   },
   "devDependencies": {

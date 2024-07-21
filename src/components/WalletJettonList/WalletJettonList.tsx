@@ -44,7 +44,6 @@ export function WalletJettonList() {
     }
     const tonApiService = new TonApiService(rawAddress);
     const response = await tonApiService.getAccountJettonsInfo();
-    console.log('response', response);
     if (!response) {
       return;
     }
@@ -107,9 +106,7 @@ export function WalletJettonList() {
           </Table>
         </React.Fragment>
       ) : (
-        <button onClick={() => tonConnectUi.openModal()}>
-          Connect wallet to check your jettons
-        </button>
+        <></>
       )}
     </Box>
   );
