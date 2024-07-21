@@ -34,12 +34,11 @@ const TableRowStyled = styled(TableRow)`
 `;
 
 export function WalletJettonList() {
-  const wallet = useTonWallet();
-  const [tonConnectUi] = useTonConnectUI();
   const [jettons, setJettons] = React.useState<[]>([]);
   const rawAddress = useTonAddress(false);
   const getJettonList = useCallback(async () => {
-    if (!wallet) {
+    console.log('rawAddress', rawAddress);
+    if (!rawAddress) {
       return;
     }
     const tonApiService = new TonApiService(rawAddress);
@@ -48,7 +47,7 @@ export function WalletJettonList() {
       return;
     }
     setJettons(response);
-  }, [wallet]);
+  }, [rawAddress]);
 
   useEffect(() => {
     getJettonList();

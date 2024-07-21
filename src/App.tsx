@@ -2,7 +2,9 @@ import { THEME, TonConnectUIProvider } from '@tonconnect/ui-react';
 import { Header } from './components/Header/Header';
 import { WalletJettonList } from './components/WalletJettonList/WalletJettonList';
 import { Box, styled } from '@mui/material';
-
+import { Routes, Route } from 'react-router-dom';
+import { NavTabs } from './components/Tabs/Tabs';
+import { Footer } from './components/Footer/Footer';
 const Container = styled(Box)`
   min-height: 100%;
   height: 100%
@@ -19,9 +21,9 @@ function App() {
   return (
     <Box
       style={{
-        justifyContent: 'center',
         height: '100vh',
-        width: '100%',
+        display: 'flex',
+        flexDirection: 'column',
       }}
     >
       <TonConnectUIProvider
@@ -92,7 +94,11 @@ function App() {
       >
         <Container>
           <Header />
-          <WalletJettonList />
+          <Routes>
+            <Route path="/" element={<WalletJettonList />} />
+            <Route path="/security" element={<div>aaa</div>} />
+          </Routes>
+          <NavTabs />
         </Container>
       </TonConnectUIProvider>
     </Box>

@@ -2,39 +2,40 @@ import WalletRoundedIcon from '@mui/icons-material/WalletRounded';
 import GppGoodRoundedIcon from '@mui/icons-material/GppGoodRounded';
 import React from 'react';
 import { Box, styled, Tabs, Tab } from '@mui/material';
+import { TabContext, TabList } from '@mui/lab';
+import { useNavigate } from 'react-router-dom';
 
-const Container = styled(Box)``;
-
-export function AppTabs() {
-  const [value, setValue] = React.useState(0);
-
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+export function NavTabs() {
+  const [value, setValue] = React.useState('/');
+  const navigate = useNavigate(); // Get the navigate function
+  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
+    navigate(newValue);
   };
 
   return (
-    <Box sx={{ width: '100%' }} className="send-tx-form">
-      <Tabs
-        sx={{ width: '100%', backgroundColor: 'black', color: 'white' }}
-        value={value}
-        onChange={handleChange}
-        aria-label="icon position tabs example"
-        variant="fullWidth"
-        TabIndicatorProps={{
-          style: {
-            backgroundColor: 'red',
-            color: 'red',
-          },
-        }}
-      >
-        <Tab sx={{ color: 'white' }} icon={<WalletRoundedIcon />} label="top" />
-        <Tab
-          sx={{ color: 'white' }}
-          icon={<GppGoodRoundedIcon />}
-          iconPosition="bottom"
-          label="start"
-        />
-      </Tabs>
+    <Box
+      sx={{ position: 'fixed', bottom: 0, left: 0, right: 0, width: '100%' }}
+      className="send-tx-form"
+    >
+      <TabContext value={value}>
+        <TabList onChange={handleChange} variant="fullWidth">
+          <Tab
+            icon={<WalletRoundedIcon />}
+            value="/"
+            label="Portfolio"
+            iconPosition="bottom"
+            sx={{ color: 'white' }}
+          />
+          <Tab
+            icon={<GppGoodRoundedIcon />}
+            value="/security"
+            label="Security"
+            iconPosition="bottom"
+            sx={{ color: 'white' }}
+          />
+        </TabList>
+      </TabContext>
     </Box>
   );
 }
