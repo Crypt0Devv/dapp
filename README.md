@@ -1,4 +1,4 @@
-# RAG Application with Ollama 3
+# Ton Tool Dapp
 
 ## Overview
 
