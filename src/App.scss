@@ -7,3 +7,16 @@
     margin-bottom: 10px;
   }
 }
+.footer {
+  padding: 20px;
+  display: flex;
+  gap: 20px;
+  justify-content: flex-end;
+  align-items: center;
+  flex-wrap: wrap;
+
+  >div>label {
+    color: white;
+    margin-right: 5px;
+  }
+}

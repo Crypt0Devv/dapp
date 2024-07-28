@@ -1,4 +1,4 @@
-import { TonConnectButton } from '@tonconnect/ui-react';
+import { TonConnectButton, TonConnectUI } from '@tonconnect/ui-react';
 import { styled } from '@mui/material';
 
 const HeaderContainer = styled('div')`
@@ -30,9 +30,16 @@ const HeaderContainer = styled('div')`
 export const Header = () => {
   return (
     <HeaderContainer>
-      <header>
+      <header
+      // style={{
+      //   display: 'flex',
+      //   justifyContent: 'space-between',
+      //   alignItems: 'top',
+      //   width: '100%',
+      // }}
+      >
         <span>Ton Tools</span>
-        <TonConnectButton />
+        <TonConnectButton style={{ alignSelf: 'auto' }} />
       </header>
     </HeaderContainer>
   );
