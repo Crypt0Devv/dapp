@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { TonApiService } from '../../server/services/ton-api-service';
 import {
   useTonAddress,
@@ -8,6 +8,7 @@ import {
 import React from 'react';
 import {
   Box,
+  CircularProgress,
   styled,
   Table,
   TableBody,
@@ -50,17 +51,20 @@ type Jetton = {
   };
 };
 export function WalletJettonList() {
-  const [jettons, setJettons] = React.useState<Jetton[]>([]);
+  const [jettons, setJettons] = useState<Jetton[]>([]);
   const rawAddress = useTonAddress(false);
+  const [loading, setLoading] = useState(true);
   const getJettonList = useCallback(async () => {
     if (!rawAddress) {
       return;
     }
     const tonApiService = new TonApiService(rawAddress);
+    setLoading(true);
     const response = await tonApiService.getAccountJettonsInfo();
     if (!response) {
       return;
     }
+    setLoading(false);
     setJettons(response);
   }, [rawAddress]);
 
@@ -92,18 +96,32 @@ export function WalletJettonList() {
         .sort((a: any, b: any) => b.value - a.value)
     );
   }
-
   const rows = mapData(jettons);
   const navigate = useNavigate();
 
   const showJettonDetails = (index: number) => {
-    navigate(`/jetton-details/${rows[index].address}`, {
+    navigate(`/tontools-dapp/jetton-details/${rows[index].address}`, {
       state: {
         jetton: rows[index],
       },
       replace: true,
     });
   };
+
+  if (loading) {
+    return (
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '50vh',
+        }}
+      >
+        <CircularProgress />
+      </div>
+    );
+  }
 
   return (
     <Box sx={{ overflowX: 'auto' }} className="send-tx-form">
