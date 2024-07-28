@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 export function NavTabs() {
   const [value, setValue] = React.useState('/');
-  const navigate = useNavigate(); // Get the navigate function
+  const navigate = useNavigate();
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
     navigate(newValue);

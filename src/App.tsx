@@ -3,8 +3,8 @@ import { Header } from './components/Header/Header';
 import { WalletJettonList } from './components/WalletJettonList/WalletJettonList';
 import { Box, styled } from '@mui/material';
 import { Routes, Route } from 'react-router-dom';
-import { NavTabs } from './components/Tabs/Tabs';
-import { Footer } from './components/Footer/Footer';
+import { NavTabs } from './components/NavTabs/NavTabs';
+import { JettonDetails } from './components/JettonDetails/JettonDetails';
 const Container = styled(Box)`
   min-height: 100%;
   height: 100%
@@ -24,10 +24,11 @@ function App() {
         height: '100vh',
         display: 'flex',
         flexDirection: 'column',
+        width: '100%',
       }}
     >
       <TonConnectUIProvider
-        manifestUrl="https://ton-connect.github.io/demo-dapp-with-react-ui/tonconnect-manifest.json"
+        manifestUrl="https://lucasrz.github.io/ton-tools/manifest.json"
         uiPreferences={{ theme: THEME.DARK }}
         walletsListConfiguration={{
           includeWallets: [
@@ -96,9 +97,11 @@ function App() {
           <Header />
           <Routes>
             <Route path="/" element={<WalletJettonList />} />
-            <Route path="/security" element={<div>aaa</div>} />
+            <Route
+              path="/jetton-details/:jettonAddress"
+              element={<JettonDetails />}
+            />
           </Routes>
-          <NavTabs />
         </Container>
       </TonConnectUIProvider>
     </Box>

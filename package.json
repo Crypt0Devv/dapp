@@ -5,13 +5,14 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host --force",
-    "build": "tsc && GH_PAGES=true VITE_GH_PAGES=true vite build",
+    "build": "tsc && vite build",
     "build:dev": "tsc && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
     "@emotion/react": "^11.13.0",
     "@emotion/styled": "^11.13.0",
+    "@fontsource/space-mono": "^5.0.20",
     "@mui/icons-material": "^5.16.4",
     "@mui/lab": "^5.0.0-alpha.172",
     "@mui/material": "^5.16.4",

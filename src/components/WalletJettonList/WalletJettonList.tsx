@@ -16,6 +16,8 @@ import {
   TableRow,
   Typography,
 } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import { getAmount } from '../../utils/number';
 
 const TableHeadStyled = styled(TableHead)`
   color: white;
@@ -26,18 +28,31 @@ const TableBodyStyled = styled(TableBody)`
 `;
 
 const TableCellStyled = styled(TableCell)`
-  color: white;
+  border-bottom: 0;
 `;
 
-const TableRowStyled = styled(TableRow)`
-  color: white;
-`;
-
+const TableRowStyled = styled(TableRow)``;
+type Jetton = {
+  balance: string;
+  jetton: {
+    address: string;
+    decimals: number;
+    image: string;
+    name: string;
+    symbol: string;
+    verification: string;
+  };
+  rate: number;
+  wallet_address: {
+    address: string;
+    is_scam: boolean;
+    is_wallet: boolean;
+  };
+};
 export function WalletJettonList() {
-  const [jettons, setJettons] = React.useState<[]>([]);
+  const [jettons, setJettons] = React.useState<Jetton[]>([]);
   const rawAddress = useTonAddress(false);
   const getJettonList = useCallback(async () => {
-    console.log('rawAddress', rawAddress);
     if (!rawAddress) {
       return;
     }
@@ -53,43 +68,68 @@ export function WalletJettonList() {
     getJettonList();
   }, [getJettonList]);
 
-  function createData(
-    id: number,
-    date: string,
-    name: string,
-    shipTo: string,
-    paymentMethod: string,
-    amount: number
-  ) {
-    return { id, date, name, shipTo, paymentMethod, amount };
+  function mapData(jettons: Jetton[]) {
+    return (
+      jettons
+        .map((item: any, index: number) => {
+          const balance = getAmount(item.balance, item.jetton.decimals);
+          const rate = Number(item.rate).toFixed(6);
+          const value = (item.rate * balance).toFixed(6);
+          return {
+            id: index,
+            name: item.jetton.symbol,
+            balance,
+            rate,
+            value,
+            profit: '%',
+            verification: item.jetton.verification,
+            isScam: item.wallet_address.is_scam,
+            image: item.jetton.image,
+            address: item.jetton.address,
+          };
+        })
+        // .filter((item: any) => item.balance > 0 && item.value > 0)
+        .sort((a: any, b: any) => b.value - a.value)
+    );
   }
-  const rows = jettons.map((item: any, index: number) => {
-    const balance = Math.floor(item.balance / 10 ** item.jetton.decimals);
-    const rate = Number(item.rate).toFixed(6);
-    const value = (item.rate * balance).toFixed(6);
-    return {
-      id: index,
-      name: item.jetton.symbol,
-      balance,
-      rate,
-      value,
-      profit: '%',
-    };
-  });
+
+  const rows = mapData(jettons);
+  const navigate = useNavigate();
+
+  const showJettonDetails = (index: number) => {
+    navigate(`/jetton-details/${rows[index].address}`, {
+      state: {
+        jetton: rows[index],
+      },
+      replace: true,
+    });
+  };
 
   return (
     <Box sx={{ overflowX: 'auto' }} className="send-tx-form">
-      {wallet ? (
+      {rawAddress && rows.length ? (
         <React.Fragment>
-          <h1 style={{ color: 'white' }}>Jettons</h1>
           <Table size="small">
             <TableBody>
-              {rows.map((row) => (
-                <TableRow key={row.id}>
+              {rows.map((row: any, index: number) => (
+                <TableRow key={index} onClick={() => showJettonDetails(index)}>
                   <TableCellStyled style={{ textAlign: 'left' }}>
-                    {row.name}
-                    <br />
-                    {row.rate}
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                      <img
+                        src={row.image}
+                        alt="Jetton"
+                        style={{
+                          width: '30px',
+                          height: '30px',
+                          borderRadius: '50%',
+                          marginRight: '10px',
+                        }}
+                      />
+                      <div>
+                        <p>{row.name}</p>
+                        <p> {row.rate}</p>
+                      </div>
+                    </div>
                   </TableCellStyled>
                   <TableCellStyled style={{ textAlign: 'right' }}>
                     <Typography sx={{ fontSize: '1.2rem' }}>
