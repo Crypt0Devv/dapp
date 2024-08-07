@@ -10,6 +10,7 @@ import {
   TableCell,
   TableRow,
   Button,
+  CircularProgress,
 } from '@mui/material';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -24,6 +25,7 @@ export function JettonDetails() {
   const { jettonAddress } = useParams();
   const [jetton, setJetton] = useState(location.state.jetton);
   const [jettonEvents, setJettonEvents] = React.useState([]);
+  const [loading, setLoading] = useState(true);
   const getJettonInfo = useCallback(async () => {
     if (!rawAddress) {
       return;
@@ -32,11 +34,13 @@ export function JettonDetails() {
     if (!jettonAddress) {
       return;
     }
+    setLoading(true);
     const response = await tonApiService.getJettonInfoByAccount(
       jettonAddress,
       jetton.rate,
       rawAddress
     );
+    setLoading(false);
 
     setJettonEvents(response);
   }, [rawAddress]);
@@ -58,6 +62,21 @@ export function JettonDetails() {
       .sort((a: any, b: any) => b.value - a.value);
   }
 
+  if (loading) {
+    return (
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '50vh',
+        }}
+      >
+        <CircularProgress />
+      </div>
+    );
+  }
+
   const rows = mapEntryData(jettonEvents);
 
   return (
@@ -73,7 +92,7 @@ export function JettonDetails() {
     >
       <Button
         startIcon={<ArrowBackIcon />}
-        onClick={() => navigate('/')}
+        onClick={() => navigate('/tontools-dapp/')}
         sx={{ position: 'absolute', top: 0, left: 0, m: 2 }}
       ></Button>
       <Box
