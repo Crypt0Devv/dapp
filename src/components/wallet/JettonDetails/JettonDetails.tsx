@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { TonApiService } from '../../server/services/ton-api-service';
+import { TonApiService } from '../../../server/services/ton-api-service';
 import { useTonAddress } from '@tonconnect/ui-react';
 import React from 'react';
 import {
