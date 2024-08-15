@@ -9,8 +9,10 @@ export class TonApiService {
 
   public readonly refreshIntervalMs = 9 * 60 * 1000;
 
-  constructor(walletAddress: string) {
-    this.walletAddress = walletAddress;
+  constructor(walletAddress?: string) {
+    if (walletAddress) {
+      this.walletAddress = walletAddress;
+    }
   }
 
   async getAccountJettons() {
@@ -187,18 +189,20 @@ export class TonApiService {
 
     return jettonRatesMap;
   }
-  // async createJetton(
-  //   jetton: CreateJettonRequestDto
-  // ): Promise<SendTransactionRequest> {
-  //   return await (
-  //     await fetch(`${this.host}/api/create_jetton`, {
-  //       body: JSON.stringify(jetton),
-  //       headers: {
-  //         Authorization: `Bearer ${this.accessToken}`,
-  //         'Content-Type': 'application/json',
-  //       },
-  //       method: 'POST',
-  //     })
-  //   ).json();
-  // }
+
+  async getJettonInfo(jettonAccountId: string) {
+    try {
+      const response = await (
+        await fetch(`${this.host}/jettons/${jettonAccountId}`, {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+      ).json();
+
+      return response;
+    } catch (error) {
+      console.log('error', error);
+    }
+  }
 }

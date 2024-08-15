@@ -4,6 +4,7 @@ import React from 'react';
 import { Box, styled, Tabs, Tab } from '@mui/material';
 import { TabContext, TabList } from '@mui/lab';
 import { useNavigate } from 'react-router-dom';
+import CurrencyBitcoinIcon from '@mui/icons-material/CurrencyBitcoin';
 
 export function NavTabs() {
   const [value, setValue] = React.useState('/');
@@ -22,15 +23,15 @@ export function NavTabs() {
         <TabList onChange={handleChange} variant="fullWidth">
           <Tab
             icon={<WalletRoundedIcon />}
-            value="/"
+            value="/tontools-dapp/"
             label="Portfolio"
             iconPosition="bottom"
             sx={{ color: 'white' }}
           />
           <Tab
-            icon={<GppGoodRoundedIcon />}
-            value="/security"
-            label="Security"
+            icon={<CurrencyBitcoinIcon />}
+            value="/tontools-dapp/jetton"
+            label="Token"
             iconPosition="bottom"
             sx={{ color: 'white' }}
           />

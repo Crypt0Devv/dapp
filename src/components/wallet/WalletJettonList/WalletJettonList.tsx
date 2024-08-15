@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useState } from 'react';
-import { TonApiService } from '../../server/services/ton-api-service';
 import {
   useTonAddress,
   useTonConnectUI,
@@ -18,7 +17,8 @@ import {
   Typography,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { getAmount } from '../../utils/number';
+import { TonApiService } from '../../../server/services/ton-api-service';
+import { getAmount } from '../../../utils/number';
 
 const TableHeadStyled = styled(TableHead)`
   color: white;

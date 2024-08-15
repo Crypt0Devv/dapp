@@ -1,9 +1,11 @@
 import { THEME, TonConnectUIProvider } from '@tonconnect/ui-react';
 import { Header } from './components/Header/Header';
-import { WalletJettonList } from './components/WalletJettonList/WalletJettonList';
+import { WalletJettonList } from './components/wallet/WalletJettonList/WalletJettonList';
 import { Box, styled } from '@mui/material';
 import { Routes, Route } from 'react-router-dom';
-import { JettonDetails } from './components/JettonDetails/JettonDetails';
+import { JettonDetails } from './components/wallet/JettonDetails/JettonDetails';
+import { NavTabs } from './components/NavTabs/NavTabs';
+import { JettonInfo } from './components/jetton/JettonInfo/JettonInfo';
 const Container = styled(Box)`
   min-height: 100%;
   height: 100%
@@ -39,8 +41,13 @@ function App() {
               path="/tontools-dapp/jetton-details/:jettonAddress"
               element={<JettonDetails />}
             />
+            <Route
+              path="/tontools-dapp/jetton"
+              element={<JettonInfo></JettonInfo>}
+            />
           </Routes>
         </Container>
+        <NavTabs></NavTabs>
       </TonConnectUIProvider>
     </Box>
   );
