@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite --host --force",
+    "dev": "GH_PAGES=false vite --host --force",
     "build": "tsc && GH_PAGES=true && vite build && cp ./tonconnect-manifest.json ./dist/tonconnect-manifest.json && cp ./icon.png ./dist/assets/icon.png",
     "build:dev": "tsc && vite build",
     "preview": "vite preview"
