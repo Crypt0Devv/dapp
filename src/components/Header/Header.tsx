@@ -1,46 +1,45 @@
 import { TonConnectButton, TonConnectUI } from '@tonconnect/ui-react';
 import { styled } from '@mui/material';
 
-const HeaderContainer = styled('div')`
-  header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 25px;
-
-    > span {
-      font-size: 30px;
-      line-height: 34px;
-      color: rgba(102, 170, 238, 0.91);
-      font-weight: bold;
-    }
-  }
-
-  @media (max-width: 525px) {
-    header {
-      flex-direction: column;
-      gap: 10px;
-
-      > *:nth-child(2) {
-        align-self: flex-end;
-      }
-    }
-  }
-`;
-export const Header = () => {
+export function Header() {
   return (
-    <HeaderContainer>
-      <header
-      // style={{
-      //   display: 'flex',
-      //   justifyContent: 'space-between',
-      //   alignItems: 'top',
-      //   width: '100%',
-      // }}
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+    >
+      <h1
+        style={{
+          backgroundColor: 'black',
+          color: 'white',
+          padding: '10px',
+          borderRadius: '10px',
+          fontSize: '3rem',
+          margin: '0',
+          whiteSpace: 'nowrap', // Prevent line breaks
+          overflow: 'hidden', // Hide overflow text
+          textOverflow: 'ellipsis', // Add ellipsis for overf
+        }}
       >
-        <span>Ton Tools</span>
-        <TonConnectButton style={{ alignSelf: 'auto' }} />
-      </header>
-    </HeaderContainer>
+        Rising Tide
+      </h1>
+      <h2
+        style={{
+          backgroundColor: 'black',
+          color: 'white',
+          padding: '10px',
+          borderRadius: '10px',
+          fontSize: '1rem',
+          whiteSpace: 'nowrap', // Prevent line breaks
+          overflow: 'hidden', // Hide overflow text
+          textOverflow: 'ellipsis', // Add ellipsis for overf
+        }}
+      >
+        The New Wave on TON
+      </h2>
+    </div>
   );
-};
+}

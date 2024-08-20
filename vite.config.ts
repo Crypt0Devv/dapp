@@ -8,7 +8,7 @@ export default defineConfig({
   build: {
     outDir: 'dist',
   },
-  base: process.env.GH_PAGES ? '/tontools-dapp/' : './',
+  base: '/',
   server: {
     fs: {
       allow: ['../sdk', './'],
